@@ -10,4 +10,4 @@ class Object:
         self.vz = 0
         self.ax = 0
         self.ay = 0
-        self.az = 0 
+        self.az = 0
