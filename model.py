@@ -1,1 +1,1 @@
-def calculate_boost()
+def calculate_boost() 
