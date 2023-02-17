@@ -1,15 +1,18 @@
 
 def calculate_boost(obj, particles):
+    obj.ax = 0
+    obj.ay = 0
+    obj.az = 0
     for part in particles:
         if part != obj:
             x = part.x - obj.x
             y = part.y - obj.y
             z = part.z - obj.z
             r = (x**2 + y**2 + z**2) ** 1/2
-            k = 48 * 1000000 * (1 / r**8 - 2 / r**14)
-            obj.ax = k * x
-            obj.ay = k * y
-            obj.az = k * z
+            k = 24 * (1 / r**8 - 2 / r**14)
+            obj.ax += k * x
+            obj.ay += k * y
+            obj.az += k * z
                 
 def move(particles, dt):
     for obj in particles:
