@@ -7,9 +7,9 @@ class Particle:
 
     def __init__(self):
         self.m = 1
-        self.x = randint(0, X)/200
-        self.y = randint(0, Y)/200
-        self.z = randint(0, Z)/200
+        self.x = randint(0, X*1e10)/1e10
+        self.y = randint(0, Y*1e10)/1e10
+        self.z = randint(0, Z*1e10)/1e10
         self.vx = 0
         self.vy = 0
         self.vz = 0

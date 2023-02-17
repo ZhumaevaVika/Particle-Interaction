@@ -1,4 +1,4 @@
-
+from config import s, e, m, dt
 def calculate_boost(obj, particles):
     obj.ax = 0
     obj.ay = 0
@@ -9,12 +9,12 @@ def calculate_boost(obj, particles):
             y = part.y - obj.y
             z = part.z - obj.z
             r = (x**2 + y**2 + z**2) ** 1/2
-            k = 24 * (1 / r**8 - 2 / r**14)
-            obj.ax += k * x
-            obj.ay += k * y
-            obj.az += k * z
+            k = 24 * e / m * (s**6 / r**7 - 2*s**12 / r**13)
+            obj.ax += k * x / r
+            obj.ay += k * y / r
+            obj.az += k * z / r
                 
-def move(particles, dt):
+def move(particles):
     for obj in particles:
         calculate_boost(obj, particles)
         obj.ax1 = obj.ax
