@@ -1,4 +1,5 @@
 import pygame as pg
+from math import  ceil
 from random import randint
 from config import BLUE, X, Y, Z
 
@@ -7,11 +8,11 @@ class Particle:
 
     def __init__(self):
         self.m = 1
-        self.x = randint(0, X*1e10)/1e10
-        self.y = randint(0, Y*1e10)/1e10
-        self.z = randint(0, Z*1e10)/1e10
-        self.vx = 0
-        self.vy = 0
+        self.x = randint(0, X)
+        self.y = randint(0, Y)
+        self.z = 0
+        self.vx = randint(-1000, 1000)
+        self.vy = randint(-1000, 1000)
         self.vz = 0
         self.ax = 0
         self.ay = 0
@@ -20,15 +21,31 @@ class Particle:
         self.ay1 = 0
         self.az1 = 0
         self.r = 10
-        self.pos = (self.x, self.y, self.z)
+        self.pos = (self.x, self.y)
 
     def draw_particle(self, screen):
+        self.pos = (self.x, self.y)
         pg.draw.circle(screen, BLUE, self.pos, self.r)
+
+
+def generate_coordinate(particles, number):
+    big_number = (ceil(number**0.5))**2
+    a = (X*Y/big_number)**0.5
+    x0 = a/2
+    y0 = a/2
+    for obj in particles:
+        obj.x = x0
+        obj.y = y0
+        x0 += a
+        if x0 > a*ceil(number**0.5):
+            y0 += a
+            x0 = a/2
 
 
 def generate(particles, number):
     for i in range(number):
         part = Particle()
         particles.append(part)
+    generate_coordinate(particles, number)
     return particles
 

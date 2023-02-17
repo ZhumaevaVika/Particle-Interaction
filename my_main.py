@@ -1,6 +1,6 @@
 from config import dt
 from object import generate
-from model import move 
+from model import move
 from stats import calculate_energy
 
 particles = []

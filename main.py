@@ -1,7 +1,7 @@
 import pygame as pg
 from config import FPS, WIDTH, HEIGHT, WHITE, dt
 from object import generate
-from model import move 
+from model import move
 
 pg.init()
 screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -10,7 +10,7 @@ loop = True
 t = 0
 
 particles = []
-generate(particles, 2)
+generate(particles, 64)
 
 while loop:
     screen.fill(WHITE)
@@ -21,7 +21,7 @@ while loop:
             loop = False
     for part in particles:
         part.draw_particle(screen)
-    move(particles, dt)
+    move(particles)
     t = t + dt
     pg.display.update()
 
