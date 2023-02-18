@@ -1,5 +1,10 @@
+import numpy as np
 from config import e, s, m
-def calculate_energy(particles):
+import matplotlib
+from matplotlib import pyplot as plt
+
+
+def calculate_energy(particles, graph_time, graph_energy, t):
     E = 0
     for obj in particles:
         v2 = (obj.vx**2 + obj.vy**2 + obj.vz**2)
@@ -11,7 +16,8 @@ def calculate_energy(particles):
                 z = part.z - obj.z
                 r = (x**2 + y**2 + z**2) ** 1/2
                 E += 1/2 * 4 * e * ((s/r) ** 12 - (s/r) ** 6) # считаем потенциал взаимодействия частиц
-    print(E)
-
-def graph(particles, time, energy):
-    pass
+    return E
+    
+def show_graph(graph_time, graph_energy):
+    plt.plot(graph_time, graph_energy)
+    plt.show()
