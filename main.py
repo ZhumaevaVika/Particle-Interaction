@@ -1,6 +1,6 @@
 import pygame as pg
 import numpy as np
-from config import FPS, WIDTH, HEIGHT, WHITE, dt
+from config import FPS, WIDTH, HEIGHT, WHITE, dt, N
 from object import generate
 from model import move
 from stats import calculate_energy, show_graph
@@ -15,8 +15,7 @@ graph_time = []
 graph_energy = []
 
 particles = []
-generate(particles, 60)
-
+generate(particles, N) 
 while loop:
     screen.fill(WHITE)
     clock.tick(FPS)
@@ -28,7 +27,7 @@ while loop:
         part.draw_particle(screen)
     move(particles)
     t = t + dt
-    graph_energy = np.append(graph_energy, calculate_energy(particles, graph_time, graph_energy, t))
+    graph_energy = np.append(graph_energy, calculate_energy(particles))
     graph_time = np.append(graph_time, t)
     pg.display.update()
 

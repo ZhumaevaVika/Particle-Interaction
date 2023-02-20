@@ -4,7 +4,7 @@ import matplotlib
 from matplotlib import pyplot as plt
 
 
-def calculate_energy(particles, graph_time, graph_energy, t):
+def calculate_energy(particles):
     E = 0
     for obj in particles:
         v2 = (obj.vx**2 + obj.vy**2 + obj.vz**2)

@@ -5,9 +5,9 @@ def calculate_boost(obj, particles):
     obj.az = 0
     for part in particles:
         if part != obj:
-            x = (part.x - obj.x)*SCALE
-            y = (part.y - obj.y)*SCALE
-            z = (part.z - obj.z)*SCALE
+            x = (part.x - obj.x)
+            y = (part.y - obj.y)
+            z = (part.z - obj.z)
             r = (x**2 + y**2 + z**2) ** 1/2
             k = 24 * e / m * (s**6 / r**7 - 2*s**12 / r**13)
             obj.ax += k * x / r
@@ -15,7 +15,7 @@ def calculate_boost(obj, particles):
             obj.az += k * z / r
 
 
-def move(particles):
+def move(particles, model = None):
     for obj in particles:
         calculate_boost(obj, particles)
         obj.ax1 = obj.ax
@@ -37,26 +37,28 @@ def move(particles):
         # пересчитали скорости частиц
 
 #столкновение со стенками
-#    for obj in particles:
-#        if (obj.x > X) or (obj.x < 0):
-#            obj.vx *= -1
-#        if (obj.y > Y) or (obj.y < 0):
-#            obj.vy *= -1
-#        if (obj.x > Z) or (obj.x < 0):
-#            obj.vz *= -1
+    if model == "col":
+        for obj in particles:
+            if (obj.x > X) or (obj.x < 0):
+                obj.vx *= -1
+            if (obj.y > Y) or (obj.y < 0):
+                obj.vy *= -1
+            if (obj.x > Z) or (obj.x < 0):
+                obj.vz *= -1
 
 #телепортация
-#    for obj in particles:
-#        if obj.x > X:
-#            obj.x -= X+80
-#        if obj.x < 0:
-#            obj.x += X+80
-#        if obj.y > Y:
-#            obj.y -= Y+80
-#        if obj.y < 0:
-#            obj.y += Y+80
-#        if obj.z > Z:
-#            obj.z -= Z+80
-#        if obj.z < 0:
-#            obj.z += Z+80
+    if model == "tel":
+        for obj in particles:
+            if obj.x > X:
+                obj.x -= X
+            if obj.x < 0:
+                obj.x += X
+            if obj.y > Y:
+                obj.y -= Y
+            if obj.y < 0:
+                obj.y += Y
+            if obj.z > Z:
+                obj.z -= Z
+            if obj.z < 0:
+                obj.z += Z
         
