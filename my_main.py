@@ -4,7 +4,7 @@ from model import move
 from stats import calculate_energy
 
 particles = []
-generate(particles, 10)
+generate(particles, 2)
 t = 0
 
 while t < 1:
