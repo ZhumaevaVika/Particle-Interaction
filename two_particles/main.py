@@ -5,23 +5,35 @@ from matplotlib import pyplot as plt
 from config import dt, T
 from model import move
 from object import Particle
-from stats import calculate_energy
+from stats import calculate_energy, graph
 
-part = Particle()
-graph_time = []
-graph_energy = []
-graph_x = []
+r = 1.1 * (2**0.5)
+part1 = Particle()
+part1.x = - (r / 2) / (2**0.5)
+#part1.y = - (r / 2) / (2**0.5)
+part2 = Particle()
+part2.x = (r / 2) / (2**0.5)
+#part2.y = (r / 2) / (2**0.5)
+particles = [part1, part2]
+graph_time = [0]
+graph_energy = [0]
+graph_R = [0]
 t = 0
-while t < T:
-    move(part)
-    print("x: ", part.x)
-    calculate_energy(part)
-    t += dt
-    graph_energy = np.append(graph_energy, calculate_energy(part))
-    graph_time = np.append(graph_time, t)
-    graph_x = np.append(graph_x, part.x)
+E0 = calculate_energy(particles)
 
-plt.plot(graph_time, graph_x)
-plt.show()
-plt.plot(graph_time, graph_energy)
-plt.show()
+while t < T:
+    move(particles)
+    #print("x2: ", part2.x)
+    #print("x1: ", part1.x)
+    print("E: ", calculate_energy(particles))
+    t += dt
+    R = ((part2.x - part1.x)**2 + (part2.y - part1.y)**2 + (part2.z - part1.z)**2)**0.5
+    graph_energy = np.append(graph_energy, calculate_energy(particles))
+    graph_time = np.append(graph_time, t)
+    graph_R = np.append(graph_R, R)
+
+graph(graph_time, graph_energy, graph_R)
+
+print("E_max: ", np.max(graph_energy[1:]))
+print("E_min: ", np.min(graph_energy[1:]))
+print("E0: ", E0)
