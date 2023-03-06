@@ -1,38 +1,50 @@
+import pygame as pg
 import numpy as np
 import matplotlib
 from matplotlib import pyplot as plt
 
-from config import dt, T
-from model import move
+from config import dt, T, S, H
+from model import move, move_tel, generate_particles
 from object import Particle
-from stats import calculate_energy, graph
+from stats import calculate_energy, graph, draw
 
-r = 1.1 * (2**0.5)
-part1 = Particle()
-part1.x = - (r / 2) / (2**0.5)
-#part1.y = - (r / 2) / (2**0.5)
-part2 = Particle()
-part2.x = (r / 2) / (2**0.5)
-#part2.y = (r / 2) / (2**0.5)
-particles = [part1, part2]
+pg.init()
+screen = pg.display.set_mode((S, S))
+clock = pg.time.Clock()
+loop = True
+
+
+
+
+particles = []
+generate_particles(5, particles, H)
 graph_time = [0]
 graph_energy = [0]
-graph_R = [0]
 t = 0
 E0 = calculate_energy(particles)
 
-while t < T:
-    move(particles)
+while loop:
+    screen.fill((255,255,255))
+    clock.tick(500)
+
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            loop = False
+    move_tel(particles)
     #print("x2: ", part2.x)
     #print("x1: ", part1.x)
     print("E: ", calculate_energy(particles))
+
+    draw(screen, particles)
+    
     t += dt
-    R = ((part2.x - part1.x)**2 + (part2.y - part1.y)**2 + (part2.z - part1.z)**2)**0.5
     graph_energy = np.append(graph_energy, calculate_energy(particles))
     graph_time = np.append(graph_time, t)
-    graph_R = np.append(graph_R, R)
 
-graph(graph_time, graph_energy, graph_R)
+    pg.display.update()
+
+graph(graph_time, graph_energy)
+pg.quit()
 
 print("E_max: ", np.max(graph_energy[1:]))
 print("E_min: ", np.min(graph_energy[1:]))
