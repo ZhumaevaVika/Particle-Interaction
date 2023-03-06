@@ -56,7 +56,7 @@ def draw(screen, particles):
         pg.draw.circle(screen, (0,0,1), part.pos, K/2)
 
 def write_coord(N, particles):
-    file = open("coords.xyz.txt", "a")
+    file = open("two_particles/coords.xyz.txt", "a")
     n_str = str(N)
     file.write(n_str + '\n \n')
     for obj in particles:

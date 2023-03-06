@@ -13,9 +13,6 @@ screen = pg.display.set_mode((S, S))
 clock = pg.time.Clock()
 loop = True
 
-
-
-
 particles = []
 n = 3
 generate_particles(n, particles, H)
