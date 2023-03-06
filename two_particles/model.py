@@ -109,14 +109,18 @@ def move_tel(particles):
         if obj.z < -H/2:
             obj.z += H
 
-def generate_particles(n, particles, H): #двумерный случай
+def generate_particles(n, particles, H):
     for i in range(n):
         for j in range(n):
-            part = Particle()
-            part.x = -0.4 * H + 0.8 * H * i / (n - 1)
-            part.y = -0.4 * H + 0.8 * H * j / (n - 1)
-            angle = randint(0, 360)
-            v = 20
-            part.vx = v * math.cos(angle * math.pi/180)
-            part.vy = v * math.sin(angle * math.pi/180)
-            particles.append(part)
+            for k in range(n):
+                part = Particle()
+                part.x = -0.4 * H + 0.8 * H * i / (n - 1)
+                part.y = -0.4 * H + 0.8 * H * j / (n - 1)
+                part.z = -0.4 * H + 0.8 * H * k / (n - 1)
+                angle1 = randint(0, 360)
+                angle2 = randint(0, 360)
+                v = 20
+                part.vx = v * math.cos(angle1 * math.pi/180)
+                part.vy = v * math.sin(angle1 * math.pi/180)
+                part.vz = v * math.cos(angle2 * math.pi/180)
+                particles.append(part)

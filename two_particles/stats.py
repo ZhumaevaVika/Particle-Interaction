@@ -54,3 +54,11 @@ def draw(screen, particles):
     for part in particles:
         part.pos = (K * part.x + S/2, K * part.y + S/2)
         pg.draw.circle(screen, (0,0,1), part.pos, K/2)
+
+def write_coord(N, particles):
+    file = open("coords.xyz.txt", "a")
+    n_str = str(N)
+    file.write(n_str + '\n \n')
+    for obj in particles:
+        file.write('H ' + str(obj.x) + ' ' + str(obj.y) + ' ' + str(obj.z) + ' \n')
+    file.close()

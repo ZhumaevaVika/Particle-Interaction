@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 from config import dt, T, S, H
 from model import move, move_tel, generate_particles
 from object import Particle
-from stats import calculate_energy, graph, draw
+from stats import calculate_energy, graph, draw, write_coord
 
 pg.init()
 screen = pg.display.set_mode((S, S))
@@ -17,7 +17,8 @@ loop = True
 
 
 particles = []
-generate_particles(5, particles, H)
+n = 3
+generate_particles(n, particles, H)
 graph_time = [0]
 graph_energy = [0]
 t = 0
@@ -40,6 +41,8 @@ while loop:
     t += dt
     graph_energy = np.append(graph_energy, calculate_energy(particles))
     graph_time = np.append(graph_time, t)
+
+    write_coord(n**3, particles)
 
     pg.display.update()
 
