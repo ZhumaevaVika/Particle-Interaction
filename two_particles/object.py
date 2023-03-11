@@ -1,3 +1,5 @@
+import numpy as np
+
 class Particle:
 
     def __init__(self):
@@ -17,3 +19,4 @@ class Particle:
         self.ay1 = 0
         self.az1 = 0
         self.pos = (0,0)
+        self.buckets = np.zeros(20)

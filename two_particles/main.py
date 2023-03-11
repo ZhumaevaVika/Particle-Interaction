@@ -7,6 +7,7 @@ from config import dt, T, S, H
 from model import move, move_tel, generate_particles
 from object import Particle
 from stats import calculate_energy, graph, draw, write_coord
+from distribution import show_histogram
 
 pg.init()
 screen = pg.display.set_mode((S, S))
@@ -18,6 +19,8 @@ n = 3
 generate_particles(n, particles, H)
 graph_time = [0]
 graph_energy = [0]
+vx_array = []
+
 t = 0
 E0 = calculate_energy(particles)
 
@@ -39,11 +42,18 @@ while loop:
     graph_energy = np.append(graph_energy, calculate_energy(particles))
     graph_time = np.append(graph_time, t)
 
+    if int(t / dt) % 100 == 0:
+        for obj in particles:
+            vx_array = np.append(vx_array, obj.vx)
+
     write_coord(n**3, particles)
 
     pg.display.update()
 
 graph(graph_time, graph_energy)
+show_histogram(vx_array)
+print(vx_array)
+
 pg.quit()
 
 print("E_max: ", np.max(graph_energy[1:]))
